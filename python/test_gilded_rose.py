@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose, FooItem
+from gilded_rose import Item, GildedRose, FooItem, AgedBrieItem, SulfurasItem, BackstageItem, ConjuredItem
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -36,59 +36,59 @@ class GildedRoseTest(unittest.TestCase):
     def test_aged_brie(self):
         """"Aged Brie" actually increases in Quality the older it gets"""
         self.assertGildedRoseItem(
-            Item(name="Aged Brie", sell_in=2, quality=0),
+            AgedBrieItem(sell_in=2, quality=0),
             1)
 
     def test_mongoose_elixir(self):
         self.assertGildedRoseItem(
-            Item(name="Elixir of the Mongoose", sell_in=5, quality=7),
+            FooItem(name="Elixir of the Mongoose", sell_in=5, quality=7),
             6)
 
     def test_suluras(self):
         """"Sulfuras", being a legendary item, never has to be sold or decreases in Quality"""
         self.assertGildedRoseItem(
-            Item(name="Sulfuras, Hand of Ragnaros", sell_in=0, quality=80),
+            SulfurasItem(name="Sulfuras, Hand of Ragnaros", sell_in=0, quality=80),
             80)
 
     def test_backstage_15days(self):
         """"Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;"""
         self.assertGildedRoseItem(
-            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=20),
+            BackstageItem(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=20),
             21)
 
     def test_backstage_10days_max50(self):
         """Quality increases by 2 when there are 10 days or less"""
         self.assertGildedRoseItem(
-            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
+            BackstageItem(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
             50)
 
     def test_backstage_5days_max50(self):
         """and by 3 when there are 5 days or less"""
         self.assertGildedRoseItem(
-            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=49),
+            BackstageItem(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=49),
             50)
 
     def test_backstage_10days(self):
         """Quality increases by 2 when there are 10 days or less"""
         self.assertGildedRoseItem(
-            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=10),
+            BackstageItem(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=10),
             12)
 
     def test_backstage_5days(self):
         """and by 3 when there are 5 days or less"""
         self.assertGildedRoseItem(
-            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=10),
+            BackstageItem(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=10),
             13)
 
     def test_backstage_0(self):
         """Quality drops to 0 after the concert"""
         self.assertGildedRoseItem(
-            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=0, quality=49),
+            BackstageItem(name="Backstage passes to a TAFKAL80ETC concert", sell_in=0, quality=49),
             0)
 
     def test_conjured_mana_cake(self):
         self.assertGildedRoseItem(
-            Item(name="Conjured Mana Cake", sell_in=3, quality=6),
+            ConjuredItem(name="Conjured Mana Cake", sell_in=3, quality=6),
             4)
 
 
