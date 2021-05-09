@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose, FooItem, AgedBrieItem, SulfurasItem, BackstageItem, ConjuredItem
+from gilded_rose import Item, GildedRose, AgedBrieItem, SulfurasItem, BackstageItem, ConjuredItem
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -19,18 +19,18 @@ class GildedRoseTest(unittest.TestCase):
     def test_foo_not_passed(self):
         """a not passed item has -1 quality / day"""
         self.assertGildedRoseItem(
-            FooItem("foo", 10, 5),
+            Item("foo", 10, 5),
             4)
 
     def test_foo_passed(self):
         """a passed item has double decrease quality / day, -2 for standard item"""
         self.assertGildedRoseItem(
-            FooItem("foo", -1, 5),
+            Item("foo", -1, 5),
             3)
 
     def test_dex_vest(self):
         self.assertGildedRoseItem(
-            FooItem(name="+5 Dexterity Vest", sell_in=10, quality=20),
+            Item(name="+5 Dexterity Vest", sell_in=10, quality=20),
             19)
 
     def test_aged_brie(self):
@@ -41,7 +41,7 @@ class GildedRoseTest(unittest.TestCase):
 
     def test_mongoose_elixir(self):
         self.assertGildedRoseItem(
-            FooItem(name="Elixir of the Mongoose", sell_in=5, quality=7),
+            Item(name="Elixir of the Mongoose", sell_in=5, quality=7),
             6)
 
     def test_suluras(self):
