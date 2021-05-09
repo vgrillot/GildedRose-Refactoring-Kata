@@ -35,7 +35,7 @@ class BaseItem:
             self.do_update_quality_after_sell()
         if self.quality < 0:
             self.quality = 0
-        if self.quality > 0:
+        if self.quality > 50:
             self.quality = 50
 
     def do_update_quality_before_sell(self):
