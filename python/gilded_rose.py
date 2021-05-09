@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import abc
 
 
 class GildedRose(object):
@@ -21,38 +20,50 @@ class BaseItem:
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
-    @abc.abstractmethod
+    def do_update_sell_time(self):
+        """object takes age..."""
+        self.sell_in -= 1
+
     def update_quality(self):
-        pass
+        self.do_update_sell_time()
+        self.do_update_quality()
+
+    def do_update_quality(self):
+        if self.sell_in > 0:
+            self.do_update_quality_before_sell()
+        else:
+            self.do_update_quality_after_sell()
+        if self.quality < 0:
+            self.quality = 0
+        if self.quality > 0:
+            self.quality = 50
+
+    def do_update_quality_before_sell(self):
+        self.quality -= 1
+
+    def do_update_quality_after_sell(self):
+        self.quality -= 2
 
 
 class Item(BaseItem):
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
-    def update_quality(self):
-        delta_quality = -1
-        if self.sell_in <= 0:
-            delta_quality *= 2
-        if self.quality > 0:
-            self.quality = self.quality + delta_quality
-
 
 class AgedBrieItem(BaseItem):
     def __init__(self, sell_in, quality):
         super().__init__("Ages Brie", sell_in, quality)
 
-    def update_quality(self):
+    def do_update_quality(self):
         if self.quality < 50:
             self.quality = self.quality + 1
-        self.sell_in = self.sell_in - 1
 
 
 class SulfurasItem(BaseItem):
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
-    def update_quality(self):
+    def do_update_quality(self):
         """Sulfuras", being a legendary item, never has to be sold or decreases in Quality"""
         pass
 
@@ -61,7 +72,7 @@ class BackstageItem(BaseItem):
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
-    def update_quality(self):
+    def do_update_quality(self):
         """Sulfuras", being a legendary item, never has to be sold or decreases in Quality"""
         if self.quality < 50:
             self.quality = self.quality + 1
@@ -79,7 +90,7 @@ class ConjuredItem(BaseItem):
     def __init__(self, name, sell_in, quality):
         super().__init__(name, sell_in, quality)
 
-    def update_quality(self):
+    def do_update_quality(self):
         """"Conjured" items degrade in Quality twice as fast as normal items"""
         delta_quality = -2
         if self.sell_in <= 0:
