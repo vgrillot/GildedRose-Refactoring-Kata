@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose
+from gilded_rose import Item, GildedRose, FooItem
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -19,18 +19,18 @@ class GildedRoseTest(unittest.TestCase):
     def test_foo_not_passed(self):
         """a not passed item has -1 quality / day"""
         self.assertGildedRoseItem(
-            Item("foo", 10, 5),
+            FooItem("foo", 10, 5),
             4)
 
     def test_foo_passed(self):
         """a passed item has double decrease quality / day, -2 for standard item"""
         self.assertGildedRoseItem(
-            Item("foo", -1, 5),
+            FooItem("foo", -1, 5),
             3)
 
     def test_dex_vest(self):
         self.assertGildedRoseItem(
-            Item(name="+5 Dexterity Vest", sell_in=10, quality=20),
+            FooItem(name="+5 Dexterity Vest", sell_in=10, quality=20),
             19)
 
     def test_aged_brie(self):

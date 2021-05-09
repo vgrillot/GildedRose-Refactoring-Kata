@@ -55,3 +55,16 @@ class Item(BaseItem):
             else:
                 if self.quality < 50:
                     self.quality = self.quality + 1
+
+
+class FooItem(BaseItem):
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+    def update_quality(self):
+        delta_quality = -1
+        if self.sell_in <= 0:
+            delta_quality *= 2
+        if self.quality > 0:
+            self.quality = self.quality + delta_quality
+
