@@ -16,6 +16,19 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEquals(expected_quality, items[0].quality)
         return item
 
+    def test_foo_ager(self):
+        """ensure  item age change"""
+        item = self.assertGildedRoseItem(
+            Item("foo", 10, 5),
+            4)
+        self.assertEquals(9, item.sell_in)
+
+    def test_foo_not_passed(self):
+        """a not passed item has -1 quality / day"""
+        self.assertGildedRoseItem(
+            Item("foo", 10, 5),
+            4)
+
     def test_foo_not_passed(self):
         """a not passed item has -1 quality / day"""
         self.assertGildedRoseItem(
